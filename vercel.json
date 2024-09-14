@@ -15,6 +15,7 @@
         "APP_DEBUG": "true",
         "APP_URL": "https://your.url.from.vercel.app",
         "APP_KEY": "base64:i7y7SfGSxhM6dZXAHb+W9YbZBaRyYIbvx5675YXRRgA=",
+        "JWT_SECRET": "base64:i7y7SfGSxhM6dZXAHb+W9YbZBaRyYIbvx5675YXRRgA=",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
@@ -26,5 +27,7 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie"
-    }
+    },
+    "outputDirectory": "dist",
+    "public": true
 }
