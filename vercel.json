@@ -28,6 +28,6 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie"
     },
-    "outputDirectory": "/dist",
+    "outputDirectory": "/public",
     "public": true
 }
