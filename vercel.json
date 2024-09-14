@@ -13,7 +13,7 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://your.url.from.vercel.app",
+        "APP_URL": "laravel-api-fake-salesforce.vercel.app",
         "APP_KEY": "base64:i7y7SfGSxhM6dZXAHb+W9YbZBaRyYIbvx5675YXRRgA=",
         "JWT_SECRET": "base64:i7y7SfGSxhM6dZXAHb+W9YbZBaRyYIbvx5675YXRRgA=",
 
