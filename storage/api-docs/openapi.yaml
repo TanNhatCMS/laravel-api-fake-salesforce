@@ -2,35 +2,141 @@ openapi: 3.0.3
 info:
   description: Swagger Fake SalesForce - OpenAPI 3.0.
   title: Swagger Fake SalesForce - OpenAPI 3.0
-  version: 1.0.0
+  version: 1.0.1
 servers:
-- url: https://laravel-api-fake-salesforce.vercel.app
-- url: http://localhost:8080
-- url: http://127.0.0.1:8000
+  - url: https://laravel-api-fake-salesforce.vercel.app
+  - url: http://localhost:8080
+  - url: http://127.0.0.1:8000
 paths:
   /services/oauth2/token:
     post:
-      operationId: servicesOauth2TokenPOST
+      operationId: Token
       requestBody:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/_services_oauth2_token_post_request'
+              $ref: '#/components/schemas/TokenRequest'
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/_services_oauth2_token_post_200_response'
+                $ref: '#/components/schemas/TokenResponse'
           description: Trả về JWT access_token và instance_url
         "400":
           description: Thiếu tham số hoặc tham số không hợp lệ
       summary: Lấy JWT access_token và instance_url test.salesforce.com
       x-eov-operation-handler: controllers/DefaultController
+  /services/apexrest/hkt/v1.0/bookings:
+    post:
+      operationId: Bookings
+      summary: Tạo đặt chỗ mới
+      description: Điểm cuối để tạo đặt chỗ mới với thông tin khách hàng có liên quan.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '200':
+          description: Phản hồi tạo đặt chỗ thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingResponse'
+        '400':
+          description: Bad Request - Missing or invalid parameters
+        '500':
+          description: Internal Server Error
 components:
   schemas:
-    _services_oauth2_token_post_200_response:
+    BookingRequest:
+      type: object
+      required:
+        - FacilityNumber
+        - PersonLastName
+        - PersonFirstName
+        - ChildBirthday1
+        - PersonContactPhone
+        - DesiredReservationDateTime
+        - DesiredAdmissionDate
+        - PersonAddress
+        - PersonNumber
+        - ChildNumber
+      properties:
+        FacilityNumber:
+          type: string
+          description: Facility number
+          example: "111125030005"
+        PersonLastName:
+          type: string
+          description: Last name of the person
+          example: "Suzuki"
+        PersonFirstName:
+          type: string
+          description: First name of the person
+          example: "Taro"
+        ChildBirthday1:
+          type: string
+          format: date
+          description: First child’s birthday
+          example: "2023-03-07"
+        ChildBirthday2:
+          type: string
+          format: date
+          description: Second child’s birthday (optional)
+          example: "2023-03-07"
+        PersonContactPhone:
+          type: string
+          description: Person's contact phone number
+          example: "090-1234-5678"
+        PersonContactMail:
+          type: string
+          description: Person's contact email
+          example: "aaa@xxx.co.jp"
+        DesiredReservationDateTime:
+          type: string
+          format: date-time
+          description: Desired reservation date and time
+          example: "2023-03-01T00:00:00"
+        DesiredAdmissionDate:
+          type: string
+          format: date
+          description: Desired admission date
+          example: "2023-03-07"
+        PersonAddress:
+          type: string
+          description: Person's address
+          example: "Tokyo, xxx"
+        PersonNumber:
+          type: integer
+          description: Number of people
+          example: 2
+        ChildNumber:
+          type: integer
+          description: Number of children
+          example: 2
+        MessageToChildcareFacility:
+          type: string
+          description: Message to the childcare facility
+          example: "This is a message"
+
+    BookingResponse:
+      type: object
+      properties:
+        ReservationRequiryNumber:
+          type: string
+          description: Reservation request number
+          example: "BK-00000001"
+          maxLength: 80
+        ReservationRequiryStatus:
+          type: string
+          description: Reservation request status
+          example: "仮予約"
+          maxLength: 255
+    TokenResponse:
       example:
         access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
         instance_url: https://test.salesforce.com
@@ -44,7 +150,7 @@ components:
           example: https://test.salesforce.com
           type: string
       type: object
-    _services_oauth2_token_post_request:
+    TokenRequest:
       properties:
         grant_type:
           description: Kiểu grant OAuth2
@@ -53,6 +159,6 @@ components:
           description: JWT hoặc chứng thực để lấy token
           type: string
       required:
-      - assertion
-      - grant_type
+        - assertion
+        - grant_type
       type: object
