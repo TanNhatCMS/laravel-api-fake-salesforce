@@ -26,7 +26,8 @@
 
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie"
+        "SESSION_DRIVER": "cookie",
+        "L5_SWAGGER_GENERATE_ALWAYS": "false"
     },
     "outputDirectory": "/public",
     "public": true
