@@ -62,7 +62,8 @@ return [
             'middleware' => [
                 'api' => [],
                 'asset' => [],
-                'docs' => [],
+                'docs' => [
+                ],
                 'oauth2_callback' => [],
             ],
 
@@ -108,16 +109,16 @@ return [
              * @link https://zircote.github.io/swagger-php/reference/processors.html
              */
             'default_processors_configuration' => [
-            /** Example */
-            /**
-             * 'operationId.hash' => true,
-             * 'pathFilter' => [
-             * 'tags' => [
-             * '/pets/',
-             * '/store/',
-             * ],
-             * ],.
-             */
+                /** Example */
+                /**
+                 * 'operationId.hash' => true,
+                 * 'pathFilter' => [
+                 * 'tags' => [
+                 * '/pets/',
+                 * '/store/',
+                 * ],
+                 * ],.
+                 */
             ],
 
             /**
@@ -291,7 +292,7 @@ return [
                  * is case-sensitive matching the filter expression anywhere inside
                  * the tag.
                  */
-                'filter' => env('L5_SWAGGER_UI_FILTERS', true), // true | false
+                'filter' => env('L5_SWAGGER_UI_FILTERS', false), // true | false
             ],
 
             'authorization' => [

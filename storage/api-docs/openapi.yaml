@@ -4,8 +4,9 @@ info:
   title: Swagger Fake SalesForce - OpenAPI 3.0
   version: 1.0.0
 servers:
-- url: https://api-test-salesforce.vercel.app
-- url: http://localhost:3000
+- url: https://laravel-api-fake-salesforce.vercel.app
+- url: http://localhost:8080
+- url: http://127.0.0.1:8000
 paths:
   /services/oauth2/token:
     post:
