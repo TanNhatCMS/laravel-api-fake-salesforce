@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  description: Swagger Fake SalesForce - OpenAPI 3.0.
+  title: Swagger Fake SalesForce - OpenAPI 3.0
+  version: 1.0.0
+servers:
+- url: https://api-test-salesforce.vercel.app
+- url: http://localhost:3000
+paths:
+  /services/oauth2/token:
+    post:
+      operationId: servicesOauth2TokenPOST
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/_services_oauth2_token_post_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_services_oauth2_token_post_200_response'
+          description: Trả về JWT access_token và instance_url
+        "400":
+          description: Thiếu tham số hoặc tham số không hợp lệ
+      summary: Lấy JWT access_token và instance_url test.salesforce.com
+      x-eov-operation-handler: controllers/DefaultController
+components:
+  schemas:
+    _services_oauth2_token_post_200_response:
+      example:
+        access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        instance_url: https://test.salesforce.com
+      properties:
+        access_token:
+          description: JWT được tạo để truy cập
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+          type: string
+        instance_url:
+          description: URL của instance Salesforce
+          example: https://test.salesforce.com
+          type: string
+      type: object
+    _services_oauth2_token_post_request:
+      properties:
+        grant_type:
+          description: Kiểu grant OAuth2
+          type: string
+        assertion:
+          description: JWT hoặc chứng thực để lấy token
+          type: string
+      required:
+      - assertion
+      - grant_type
+      type: object

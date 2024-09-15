@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "description": "Swagger Fake SalesForce - OpenAPI 3.0.",
+    "title": "Swagger Fake SalesForce - OpenAPI 3.0",
+    "version": "1.0.0"
+  },
+  "servers": [
+    { "url": "https://api-test-salesforce.vercel.app" },
+    { "url": "http://localhost:3000" }
+  ],
+  "paths": {
+    "/services/oauth2/token": {
+      "post": {
+        "operationId": "servicesOauth2TokenPOST",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/_services_oauth2_token_post_request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Trả về JWT access_token và instance_url",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_services_oauth2_token_post_200_response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Thiếu tham số hoặc tham số không hợp lệ"
+          }
+        },
+        "summary": "Lấy JWT access_token và instance_url test.salesforce.com",
+        "x-eov-operation-handler": "controllers/DefaultController"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "_services_oauth2_token_post_200_response": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "JWT được tạo để truy cập"
+          },
+          "instance_url": {
+            "type": "string",
+            "description": "URL của instance Salesforce"
+          }
+        }
+      },
+      "_services_oauth2_token_post_request": {
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "type": "string",
+            "description": "Kiểu grant OAuth2"
+          },
+          "assertion": {
+            "type": "string",
+            "description": "JWT hoặc chứng thực để lấy token"
+          }
+        },
+        "required": ["assertion", "grant_type"]
+      }
+    }
+  }
+}
