@@ -40,7 +40,7 @@ class SalesForceController extends Controller
         $jwt = $this->jwtService->createToken($payload);
         $response = [
             'access_token' => $jwt,
-            'instance_url' => 'https://test.salesforce.com',
+            'instance_url' => 'https://laravel-api-fake-salesforce.vercel.app',
             'payload' => $payload
         ];
         return response()->json($response, 200);
